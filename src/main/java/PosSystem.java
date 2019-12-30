@@ -15,6 +15,17 @@ public class PosSystem {
         return cart;
     }
 
+    public Promotion loadPromotion(String path) {
+        Promotion promotion = new Promotion();
+        try {
+            Files.lines(Paths.get(path))
+                    .forEach(lineFromFile -> promotion.addPromotionItem(lineFromFile, 0.0));
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+        return promotion;
+    }
+
     private Item convertToItem(String lineFromFile) {
         String[] itemAndNum = lineFromFile.split("-");
         if (1 == itemAndNum.length) {
