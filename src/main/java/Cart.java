@@ -9,12 +9,24 @@ public class Cart {
 
     private Map<String, Item> items;
 
-    public void addItem(Item item) {
+    public void addItem(String lineFromFile) {
+        Item item = convertToItem(lineFromFile);
+
         if (items.containsKey(item.getName())) {
             Item targetItem = items.get(item.getName());
             targetItem.setNum(targetItem.getNum() + item.getNum());
         } else {
             items.put(item.getName(), item);
+        }
+    }
+
+    private Item convertToItem(String lineFromFile) {
+        String[] itemAndNum = lineFromFile.split("-");
+        if (1 == itemAndNum.length) {
+            return Item.builder().name(itemAndNum[0]).num(1).build();
+        } else {
+            Integer num = Integer.parseInt(itemAndNum[1]);
+            return Item.builder().name(itemAndNum[0]).num(num).build();
         }
     }
 

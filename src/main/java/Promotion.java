@@ -9,8 +9,8 @@ public class Promotion {
         promotionItems = new HashMap<>();
     }
 
-    public void addPromotionItem(String name, Double discount) {
-        this.promotionItems.put(name, discount);
+    public void addItem(String lineFromFile) {
+        this.promotionItems.put(lineFromFile, null);
     }
 
     public int getPromotionItemsSize() {
