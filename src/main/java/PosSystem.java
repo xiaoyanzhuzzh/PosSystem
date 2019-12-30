@@ -23,6 +23,7 @@ public class PosSystem {
     private List<String> loadFromFile(String path) {
         try {
             return Files.lines(Paths.get(path))
+                    .filter(line -> !line.isEmpty())
                     .collect(toList());
         } catch (IOException e) {
             System.out.println(e);

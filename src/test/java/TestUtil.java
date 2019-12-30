@@ -1,11 +1,11 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collections;
+import java.util.List;
 
 public class TestUtil {
-    public static void initFileWithContext(String file, String context) throws IOException {
-        Files.write(Paths.get(file), Collections.singleton(context));
+    public static void initFileWithContext(String file, List<String> contexts) throws IOException {
+        Files.write(Paths.get(file), contexts);
     }
 
     public static void deleteFile(String path) throws IOException {
