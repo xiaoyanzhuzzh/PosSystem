@@ -8,6 +8,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 "cp pre-push.sh .git/hooks/pre-push.sh".execute()
+"chmod u+x .git/hooks/pre-push.sh".execute()
 
 repositories {
     mavenCentral()
