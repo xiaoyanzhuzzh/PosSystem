@@ -18,7 +18,7 @@ public class PromotionTest {
     }
 
     @Test
-    void should_return_discount_promotion_when_pos_system_load_promotion_file() throws IOException {
+    void should_return_discount_promotion_when_pos_system_load_promotion_file() {
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(buyTwoGetOneFreePromotionPath);
 
