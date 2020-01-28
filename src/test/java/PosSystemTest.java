@@ -46,6 +46,4 @@ public class PosSystemTest {
 
         assertThat(cart.getItemsSize(), is(2));
     }
-
-
 }
