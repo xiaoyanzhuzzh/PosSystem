@@ -23,3 +23,7 @@ dependencies {
 
     implementation("com.google.guava:guava:28.1-jre")
 }
+
+test {
+    useJUnitPlatform()
+}

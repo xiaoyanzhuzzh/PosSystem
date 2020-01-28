@@ -9,7 +9,9 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class PromotionTest {
-    String buyTwoGetOneFreePromotionPath = "testFiles/buy_two_get_one_free_promotion.txt";
+    String buyTwoGetOneFreePromotionPath = PromotionTest.class
+            .getResource("buy_two_get_one_free_promotion.txt")
+            .getPath();
 
     @AfterEach
     void emptyFile() throws IOException {
