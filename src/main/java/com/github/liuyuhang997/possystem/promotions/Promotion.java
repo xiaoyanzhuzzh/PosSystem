@@ -1,13 +1,15 @@
 package com.github.liuyuhang997.possystem.promotions;
 
+import com.github.liuyuhang997.possystem.entities.PromotionItem;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Promotion {
 
-    protected Map<String, Double> promotionItems;
+    protected Map<String, PromotionItem> promotionItems;
 
-    public Map<String, Double> getPromotionItems() {
+    public Map<String, PromotionItem> getPromotionItems() {
         return promotionItems;
     }
 

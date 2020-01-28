@@ -13,6 +13,7 @@ import java.util.Collections;
 import static com.github.liuyuhang997.possystem.enums.PromotionEnum.SECOND_HALF_PRICE;
 import static com.github.liuyuhang997.possystem.factories.PromotionFactory.getPromotion;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class SecondHalfPriceTest {
@@ -40,6 +41,6 @@ public class SecondHalfPriceTest {
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(secondHalfPricePromotionPath, getPromotion(SECOND_HALF_PRICE));
 
-        assertThat(promotion.getPromotionItems().size(), is(1));
+        assertThat(promotion.getPromotionItems().keySet(), contains(oneItem));
     }
 }

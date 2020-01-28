@@ -36,11 +36,13 @@ public class DiscountTest {
     @Test
     void should_return_discount_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException, PromotionTypeErrorException {
         String oneItem = "ITEM000001:75";
+        String oneItemName = "ITEM000001";
         TestUtil.initFileWithContext(discountPromotionPath, Collections.singletonList(oneItem));
 
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(discountPromotionPath, getPromotion(DISCOUNT));
 
-        assertThat(promotion.getPromotionItems().keySet(), contains(oneItem));
+        assertThat(promotion.getPromotionItems().keySet(), contains(oneItemName));
+        assertThat(promotion.getPromotionItems().get(oneItemName).getDiscount(), is(0.75d));
     }
 }

@@ -25,7 +25,7 @@ public class PosSystemTest {
         PosSystem posSystem = new PosSystem();
         Cart cart = posSystem.loadCart(cartPath);
 
-        assertThat(cart.getItemsSize(), is(0));
+        assertThat(cart.getItemsSize(), is(0d));
     }
 
     @Test
@@ -36,18 +36,17 @@ public class PosSystemTest {
         PosSystem posSystem = new PosSystem();
         Cart cart = posSystem.loadCart(cartPath);
 
-        assertThat(cart.getItemsSize(), is(1));
+        assertThat(cart.getItemsSize(), is(1d));
     }
 
     @Test
     void should_return_correct_num_of_item_when_file_have_item_with_num() throws IOException {
-        //TODO: fix num should be decimal
         String oneItemWithNum = "ITEM000001-2";
         TestUtil.initFileWithContext(cartPath, Collections.singletonList(oneItemWithNum));
 
         PosSystem posSystem = new PosSystem();
         Cart cart = posSystem.loadCart(cartPath);
 
-        assertThat(cart.getItemsSize(), is(2));
+        assertThat(cart.getItemsSize(), is(2d));
     }
 }

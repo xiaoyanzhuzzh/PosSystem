@@ -1,5 +1,7 @@
 package com.github.liuyuhang997.possystem;
 
+import com.github.liuyuhang997.possystem.entities.Item;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,27 +14,17 @@ public class Cart {
     private Map<String, Item> items;
 
     public void addItem(String lineFromFile) {
-        Item item = convertToItem(lineFromFile);
+        Item item = Item.parseItem(lineFromFile);
 
         if (items.containsKey(item.getName())) {
-            Item targetItem = items.get(item.getName());
-            targetItem.setNum(targetItem.getNum() + item.getNum());
+            Item existedItem = items.get(item.getName());
+            existedItem.setNum(existedItem.getNum() + item.getNum());
         } else {
             items.put(item.getName(), item);
         }
     }
 
-    private Item convertToItem(String lineFromFile) {
-        String[] itemAndNum = lineFromFile.split("-");
-        if (1 == itemAndNum.length) {
-            return Item.builder().name(itemAndNum[0]).num(1).build();
-        } else {
-            Integer num = Integer.parseInt(itemAndNum[1]);
-            return Item.builder().name(itemAndNum[0]).num(num).build();
-        }
-    }
-
-    public int getItemsSize() {
-        return items.values().stream().mapToInt(Item::getNum).sum();
+    public Double getItemsSize() {
+        return items.values().stream().mapToDouble(Item::getNum).sum();
     }
 }
