@@ -1,3 +1,6 @@
+package com.github.liuyuhang997.possystem;
+
+import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class PosSystemTest {
-    private String cartPath = PosSystemTest.class.getResource("cart.txt").getPath();
+    private String cartPath = TestUtil.getResourcePath("cart.txt");
 
     @AfterEach
     void emptyFile() throws IOException {
@@ -38,6 +41,7 @@ public class PosSystemTest {
 
     @Test
     void should_return_correct_num_of_item_when_file_have_item_with_num() throws IOException {
+        //TODO: fix num should be decimal
         String oneItemWithNum = "ITEM000001-2";
         TestUtil.initFileWithContext(cartPath, Collections.singletonList(oneItemWithNum));
 

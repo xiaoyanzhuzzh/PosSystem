@@ -1,3 +1,5 @@
+package com.github.liuyuhang997.possystem;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

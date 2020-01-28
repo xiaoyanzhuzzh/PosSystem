@@ -1,3 +1,7 @@
+package com.github.liuyuhang997.possystem.promotions;
+
+import com.github.liuyuhang997.possystem.PosSystem;
+import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -6,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class PromotionTest {
@@ -28,7 +33,7 @@ public class PromotionTest {
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(buyTwoGetOneFreePromotionPath);
 
-        assertThat(promotion.getPromotionItemsSize(), is(0));
+        assertThat(promotion.getPromotionItems().size(), is(0));
     }
 
     @Test
@@ -39,7 +44,7 @@ public class PromotionTest {
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(buyTwoGetOneFreePromotionPath);
 
-        assertThat(promotion.getPromotionItemsSize(), is(1));
+        assertThat(promotion.getPromotionItems().size(), is(1));
     }
 
     @Test
@@ -47,7 +52,7 @@ public class PromotionTest {
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(secondHalfPricePromotionPath);
 
-        assertThat(promotion.getPromotionItemsSize(), is(0));
+        assertThat(promotion.getPromotionItems().size(), is(0));
     }
 
     @Test
@@ -58,7 +63,7 @@ public class PromotionTest {
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(secondHalfPricePromotionPath);
 
-        assertThat(promotion.getPromotionItemsSize(), is(1));
+        assertThat(promotion.getPromotionItems().size(), is(1));
     }
 
     @Test
@@ -66,17 +71,17 @@ public class PromotionTest {
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(discountPromotionPath);
 
-        assertThat(promotion.getPromotionItemsSize(), is(0));
+        assertThat(promotion.getPromotionItems().size(), is(0));
     }
 
     @Test
     void should_return_discount_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException {
-        String oneItem = "ITEM000001";
+        String oneItem = "ITEM000001:75";
         TestUtil.initFileWithContext(discountPromotionPath, Collections.singletonList(oneItem));
 
         PosSystem posSystem = new PosSystem();
         Promotion promotion = posSystem.loadPromotion(discountPromotionPath);
 
-        assertThat(promotion.getPromotionItemsSize(), is(1));
+        assertThat(promotion.getPromotionItems().keySet(), contains(oneItem));
     }
 }

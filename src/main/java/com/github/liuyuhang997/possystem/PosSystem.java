@@ -1,3 +1,7 @@
+package com.github.liuyuhang997.possystem;
+
+import com.github.liuyuhang997.possystem.promotions.Promotion;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;

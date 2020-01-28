@@ -1,7 +1,10 @@
+package com.github.liuyuhang997.possystem.utils;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Objects;
 
 public class TestUtil {
     public static void initFileWithContext(String file, List<String> contexts) throws IOException {
@@ -15,8 +18,9 @@ public class TestUtil {
     }
 
     public static String getResourcePath(String fileName) {
-        return TestUtil.class
+        return Objects.requireNonNull(TestUtil.class
+                .getClassLoader()
                 .getResource(fileName)
-                .getPath();
+        ).getPath();
     }
 }
