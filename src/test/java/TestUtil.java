@@ -13,4 +13,10 @@ public class TestUtil {
             Files.delete(Paths.get(path));
         }
     }
+
+    public static String getResourcePath(String fileName) {
+        return TestUtil.class
+                .getResource(fileName)
+                .getPath();
+    }
 }

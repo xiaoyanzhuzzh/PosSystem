@@ -26,7 +26,7 @@ public class PosSystem {
                     .filter(line -> !line.isEmpty())
                     .collect(toList());
         } catch (IOException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         return new ArrayList<>();
     }

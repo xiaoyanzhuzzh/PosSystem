@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class PosSystemTest {
-    String cartPath = PosSystemTest.class.getResource("cart.txt").getPath();
+    private String cartPath = PosSystemTest.class.getResource("cart.txt").getPath();
 
     @AfterEach
     void emptyFile() throws IOException {
