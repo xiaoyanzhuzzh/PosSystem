@@ -18,8 +18,7 @@ public class PosSystem {
         return cart;
     }
 
-    public Promotion loadPromotion(String path) {
-        Promotion promotion = new Promotion();
+    public Promotion loadPromotion(String path, Promotion promotion) {
         loadFromFile(path).forEach(promotion::addItem);
         return promotion;
     }

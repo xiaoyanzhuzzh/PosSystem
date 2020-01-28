@@ -3,9 +3,9 @@ package com.github.liuyuhang997.possystem.promotions;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Promotion {
+public abstract class Promotion {
 
-    private Map<String, Double> promotionItems;
+    protected Map<String, Double> promotionItems;
 
     public Map<String, Double> getPromotionItems() {
         return promotionItems;
@@ -15,7 +15,5 @@ public class Promotion {
         promotionItems = new HashMap<>();
     }
 
-    public void addItem(String lineFromFile) {
-        this.promotionItems.put(lineFromFile, null);
-    }
+    public abstract void addItem(String lineFromFile);
 }
