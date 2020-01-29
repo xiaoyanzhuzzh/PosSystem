@@ -12,6 +12,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -42,7 +43,7 @@ public class PosSystemTest {
     void should_return_empty_cart_when_pos_system_load_file() {
         Cart cart = posSystem.loadCart(cartPath);
 
-        assertThat(cart.getItemsSize(), is(0d));
+        assertThat(cart.getItems().size(), is(0));
     }
 
     @Test
@@ -52,7 +53,7 @@ public class PosSystemTest {
 
         Cart cart = posSystem.loadCart(cartPath);
 
-        assertThat(cart.getItemsSize(), is(1d));
+        assertThat(cart.getItems().get(oneItem).getNum(), is(1d));
     }
 
     @Test
@@ -62,7 +63,7 @@ public class PosSystemTest {
 
         Cart cart = posSystem.loadCart(cartPath);
 
-        assertThat(cart.getItemsSize(), is(2d));
+        assertThat(cart.getItems().get("ITEM000001").getNum(), is(2d));
     }
 
     @Test
@@ -78,5 +79,18 @@ public class PosSystemTest {
 
         posSystemTestTime.checkout();
         assertThat(outContent.toString(), containsString("Print time: 2020-01-29 14:00:00"));
+    }
+
+    @Test
+    void should_print_item_num_and_price_and_unit_and_subtotal_when_pos_system_checkout() throws IOException {
+        TestUtil.initFileWithContext(cartPath,
+                asList("ITEM000001",
+                        "ITEM000001"));
+
+        posSystem.checkout();
+
+        assertThat(outContent.toString(), containsString("Shopping Details:"));
+        assertThat(outContent.toString(), containsString("ITEM000001"));
+        assertThat(outContent.toString(), containsString("subTotal:"));
     }
 }

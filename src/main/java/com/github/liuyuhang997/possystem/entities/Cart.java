@@ -1,8 +1,11 @@
 package com.github.liuyuhang997.possystem.entities;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class Cart {
 
     public Cart() {
@@ -20,9 +23,5 @@ public class Cart {
         } else {
             items.put(item.getName(), item);
         }
-    }
-
-    public Double getItemsSize() {
-        return items.values().stream().mapToDouble(Item::getNum).sum();
     }
 }
