@@ -67,7 +67,7 @@ public class PosSystemTest {
     @Test
     void should_print_shop_name_when_pos_system_running() {
         PosSystem.main(new String[]{"Shop"});
-        assertThat(outContent.toString(), containsString("shop name: Shop"));
+        assertThat(outContent.toString(), containsString("Shop name: Shop"));
     }
 
     @Test
@@ -76,6 +76,6 @@ public class PosSystemTest {
         when(posSystemTestTime.getPrintTime()).thenReturn("2020-01-29 14:00:00");
 
         posSystemTestTime.checkout();
-        assertThat(outContent.toString(), containsString("print time: 2020-01-29 14:00:00"));
+        assertThat(outContent.toString(), containsString("Print time: 2020-01-29 14:00:00"));
     }
 }

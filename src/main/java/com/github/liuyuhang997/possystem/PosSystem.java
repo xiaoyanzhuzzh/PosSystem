@@ -49,8 +49,8 @@ public class PosSystem {
     }
 
     public void checkout() {
-        System.out.println(format("shop name: %s", shopName));
-        System.out.println(format("print time: %s", getPrintTime()));
+        System.out.println(format("Shop name: %s", shopName));
+        System.out.println(format("Print time: %s", getPrintTime()));
     }
 
     protected String getPrintTime() {
