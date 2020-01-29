@@ -1,5 +1,6 @@
 package com.github.liuyuhang997.possystem;
 
+import com.github.liuyuhang997.possystem.entities.Cart;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

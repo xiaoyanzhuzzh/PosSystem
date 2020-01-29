@@ -1,6 +1,4 @@
-package com.github.liuyuhang997.possystem;
-
-import com.github.liuyuhang997.possystem.entities.Item;
+package com.github.liuyuhang997.possystem.entities;
 
 import java.util.HashMap;
 import java.util.Map;

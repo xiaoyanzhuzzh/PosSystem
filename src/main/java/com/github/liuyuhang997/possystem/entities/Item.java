@@ -12,14 +12,20 @@ import lombok.Setter;
 public class Item {
     private String name;
     private Double num;
+    private Double price;
+    private String unit;
 
     public static Item parseItem(String lineFromFile) {
         String[] itemAndNum = lineFromFile.split("-");
         if (1 == itemAndNum.length) {
-            return Item.builder().name(itemAndNum[0]).num(1d).build();
+            return buildItem(itemAndNum[0], 1d);
         } else {
             Double num = Double.parseDouble(itemAndNum[1]);
-            return Item.builder().name(itemAndNum[0]).num(num).build();
+            return buildItem(itemAndNum[0], num);
         }
+    }
+
+    private static Item buildItem(String name, Double num) {
+        return Item.builder().name(name).num(num).price(1d).unit("KG").build();
     }
 }
