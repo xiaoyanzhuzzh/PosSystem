@@ -1,4 +1,7 @@
-# Pos
+# PosSystem
+
+[![Build Status](https://travis-ci.com/liuyuhang997/PosSystem.svg?branch=master)](https://travis-ci.com/liuyuhang997/PosSystem)
+[![codecov](https://codecov.io/gh/liuyuhang997/PosSystem/branch/master/graph/badge.svg)](https://codecov.io/gh/liuyuhang997/PosSystem)
 
 ## 运行环境
 
