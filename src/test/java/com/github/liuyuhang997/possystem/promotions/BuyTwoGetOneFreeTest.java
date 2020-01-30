@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class BuyTwoGetOneFreeTest {
-    private final String ITEM = "ITEM000001";
+    private final String ITEM = "ITEM00001";
     private String buyTwoGetOneFreePromotionPath = TestUtil.getResourcePath(BUY_TWO_GET_ONE_FREE.getName());
     private PosSystem posSystem;
 

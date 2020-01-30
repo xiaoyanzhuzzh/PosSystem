@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class SecondHalfPriceTest {
-    private final String ITEM = "ITEM000001";
+    private final String ITEM = "ITEM00001";
     private String secondHalfPricePromotionPath = TestUtil.getResourcePath(SECOND_HALF_PRICE.getName());
     private PosSystem posSystem;
 

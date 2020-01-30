@@ -17,8 +17,8 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class DiscountTest {
-    private final String ITEM = "ITEM000001";
-    private final String ITEM_WITH_DISCOUNT = "ITEM000001:75";
+    private final String ITEM = "ITEM00001";
+    private final String ITEM_WITH_DISCOUNT = "ITEM00001:75";
     private String discountPromotionPath = TestUtil.getResourcePath(DISCOUNT.getName());
     private PosSystem posSystem;
 

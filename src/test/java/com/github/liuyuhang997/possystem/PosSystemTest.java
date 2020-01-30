@@ -6,9 +6,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,15 +16,12 @@ import static com.github.liuyuhang997.possystem.enums.FileNameEnum.SECOND_HALF_P
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class PosSystemTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
     private final String SHOP_NAME = "ShopTest";
-    private final String ITEM = "ITEM000001";
+    private final String ITEM = "ITEM00001";
     private String cartPath = TestUtil.getResourcePath("cart.txt");
     private String buyTwoGetOneFreePromotionPath = TestUtil.getResourcePath(BUY_TWO_GET_ONE_FREE.getName());
     private String discountPromotionPath = TestUtil.getResourcePath(DISCOUNT.getName());
@@ -37,7 +32,6 @@ public class PosSystemTest {
     @BeforeEach
     void setUp() {
         posSystem = new PosSystem(SHOP_NAME);
-        System.setOut(new PrintStream(outContent));
     }
 
     @AfterEach
@@ -50,7 +44,6 @@ public class PosSystemTest {
         TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, new ArrayList<>());
         TestUtil.initFileWithContext(discountPromotionPath, new ArrayList<>());
         TestUtil.initFileWithContext(secondHalfPricePromotionPath, new ArrayList<>());
-        System.setOut(originalOut);
     }
 
     @Test
@@ -72,42 +65,12 @@ public class PosSystemTest {
 
     @Test
     void should_return_correct_num_of_item_when_file_have_item_with_num() throws IOException {
-        String oneItemWithNum = "ITEM000001-2";
+        String oneItemWithNum = ITEM + "-2";
         TestUtil.initFileWithContext(cartPath, singletonList(oneItemWithNum));
 
         Cart cart = posSystem.loadCart(cartPath);
 
         assertThat(cart.getItems().get(ITEM).getNum(), is(2d));
-    }
-
-    @Test
-    void should_print_shop_name_when_pos_system_running() {
-        PosSystem.main(new String[]{"ShopTest"});
-        assertThat(outContent.toString(), containsString("Shop name: ShopTest"));
-    }
-
-    @Test
-    void should_print_default_shop_name_when_pos_system_running_without_args() {
-        PosSystem.main(new String[]{});
-        assertThat(outContent.toString(), containsString("Shop name: Shop"));
-    }
-
-    @Test
-    void should_print_time_when_pos_system_checkout() {
-        posSystem.checkout();
-        assertThat(outContent.toString(), containsString("Print time:"));
-    }
-
-    @Test
-    void should_print_item_num_and_price_and_unit_and_subtotal_when_pos_system_checkout() throws IOException {
-        TestUtil.initFileWithContext(cartPath, asList(ITEM, ITEM));
-
-        PosSystem posSystemTestPrint = new PosSystem(SHOP_NAME);
-        posSystemTestPrint.checkout();
-
-        assertThat(outContent.toString(), containsString("Shopping details:"));
-        assertThat(outContent.toString(), containsString(ITEM));
-        assertThat(outContent.toString(), containsString("subtotal:"));
     }
 
     @Test
@@ -146,19 +109,6 @@ public class PosSystemTest {
         posSystemTestPromotion.calculatePromotion();
 
         assertThat(posSystemTestPromotion.getCart().getItems().get(ITEM).getSubtotal(), is(1.5d));
-    }
-
-    @Test
-    void should_print_total_price_when_pos_system_running() throws IOException {
-        initCartAndPromotionsFile(asList(ITEM, ITEM, ITEM), ":75");
-        PosSystem posSystemTestTotal = new PosSystem(SHOP_NAME);
-
-        posSystemTestTotal.checkout();
-
-        assertThat(outContent.toString(), containsString("Before discount price: 3.00"));
-        assertThat(outContent.toString(), containsString("After discount price: 2.00"));
-        assertThat(outContent.toString(), containsString("Discount spread: 1.00"));
-        assertThat(outContent.toString(), containsString("Total price: 2.00"));
     }
 
     private void initCartAndPromotionsFile(List<String> items, String discount) throws IOException {
