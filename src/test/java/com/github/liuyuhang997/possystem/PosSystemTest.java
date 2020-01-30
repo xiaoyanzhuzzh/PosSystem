@@ -83,9 +83,7 @@ public class PosSystemTest {
 
     @Test
     void should_print_item_num_and_price_and_unit_and_subtotal_when_pos_system_checkout() throws IOException {
-        TestUtil.initFileWithContext(cartPath,
-                asList("ITEM000001",
-                        "ITEM000001"));
+        TestUtil.initFileWithContext(cartPath, asList("ITEM000001", "ITEM000001"));
 
         posSystem.checkout();
 

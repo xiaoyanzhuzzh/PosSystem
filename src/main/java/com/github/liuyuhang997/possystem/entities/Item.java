@@ -14,6 +14,7 @@ public class Item {
     private Double num;
     private Double price;
     private String unit;
+    private Double subtotal;
 
     public static Item parseItem(String lineFromFile) {
         String[] itemAndNum = lineFromFile.split("-");

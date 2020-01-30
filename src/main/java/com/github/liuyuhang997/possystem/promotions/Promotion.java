@@ -1,5 +1,6 @@
 package com.github.liuyuhang997.possystem.promotions;
 
+import com.github.liuyuhang997.possystem.entities.Item;
 import com.github.liuyuhang997.possystem.entities.PromotionItem;
 
 import java.util.HashMap;
@@ -18,4 +19,6 @@ public abstract class Promotion {
     }
 
     public abstract void addItem(String lineFromFile);
+
+    public abstract void calculatePromotion(Item item);
 }
