@@ -17,6 +17,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class BuyTwoGetOneFreeTest {
+    private final String ITEM = "ITEM000001";
     private String buyTwoGetOneFreePromotionPath = TestUtil.getResourcePath(BUY_TWO_GET_ONE_FREE.getName());
     private PosSystem posSystem;
 
@@ -40,19 +41,18 @@ public class BuyTwoGetOneFreeTest {
 
     @Test
     void should_return_buy_two_get_one_free_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException {
-        String oneItem = "ITEM000001";
-        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, Collections.singletonList(oneItem));
+        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, Collections.singletonList(ITEM));
 
         Promotion promotion = posSystem.loadPromotion(BUY_TWO_GET_ONE_FREE);
 
-        assertThat(promotion.getPromotionItems().keySet(), contains(oneItem));
+        assertThat(promotion.getPromotionItems().keySet(), contains(ITEM));
     }
 
     @Test
     void should_return_item_with_promoted_subtotal_when_item_in_promotion() {
-        Item item = Item.builder().name("ITEM000001").num(5d).price(1d).build();
+        Item item = Item.builder().name(ITEM).num(5d).price(1d).build();
         BuyTwoGetOneFree buyTwoGetOneFree = new BuyTwoGetOneFree();
-        buyTwoGetOneFree.addItem("ITEM000001");
+        buyTwoGetOneFree.addItem(ITEM);
 
         buyTwoGetOneFree.calculatePromotion(item);
         assertThat(item.getSubtotal(), is(4d));
@@ -60,7 +60,7 @@ public class BuyTwoGetOneFreeTest {
 
     @Test
     void should_return_item_with_not_promoted_subtotal_when_item_not_in_promotion() {
-        Item item = Item.builder().name("ITEM000001").num(5d).price(1d).build();
+        Item item = Item.builder().name(ITEM).num(5d).price(1d).build();
         BuyTwoGetOneFree buyTwoGetOneFree = new BuyTwoGetOneFree();
 
         buyTwoGetOneFree.calculatePromotion(item);

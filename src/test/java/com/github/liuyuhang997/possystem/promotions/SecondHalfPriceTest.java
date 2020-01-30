@@ -17,6 +17,7 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class SecondHalfPriceTest {
+    private final String ITEM = "ITEM000001";
     private String secondHalfPricePromotionPath = TestUtil.getResourcePath(SECOND_HALF_PRICE.getName());
     private PosSystem posSystem;
 
@@ -40,19 +41,18 @@ public class SecondHalfPriceTest {
 
     @Test
     void should_return_second_half_price_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException {
-        String oneItem = "ITEM000001";
-        TestUtil.initFileWithContext(secondHalfPricePromotionPath, Collections.singletonList(oneItem));
+        TestUtil.initFileWithContext(secondHalfPricePromotionPath, Collections.singletonList(ITEM));
 
         Promotion promotion = posSystem.loadPromotion(SECOND_HALF_PRICE);
 
-        assertThat(promotion.getPromotionItems().keySet(), contains(oneItem));
+        assertThat(promotion.getPromotionItems().keySet(), contains(ITEM));
     }
 
     @Test
     void should_return_item_with_promoted_subtotal_when_item_in_promotion() {
-        Item item = Item.builder().name("ITEM000001").num(2d).price(1d).build();
+        Item item = Item.builder().name(ITEM).num(2d).price(1d).build();
         SecondHalfPrice secondHalfPrice = new SecondHalfPrice();
-        secondHalfPrice.addItem("ITEM000001");
+        secondHalfPrice.addItem(ITEM);
 
         secondHalfPrice.calculatePromotion(item);
         assertThat(item.getSubtotal(), is(1.5d));
@@ -60,7 +60,7 @@ public class SecondHalfPriceTest {
 
     @Test
     void should_return_item_with_not_promoted_subtotal_when_item_not_in_promotion() {
-        Item item = Item.builder().name("ITEM000001").num(2d).price(1d).build();
+        Item item = Item.builder().name(ITEM).num(2d).price(1d).build();
         SecondHalfPrice secondHalfPrice = new SecondHalfPrice();
 
         secondHalfPrice.calculatePromotion(item);

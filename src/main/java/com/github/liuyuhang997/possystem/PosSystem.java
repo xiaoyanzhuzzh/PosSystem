@@ -41,6 +41,11 @@ public class PosSystem {
                 loadPromotion(SECOND_HALF_PRICE)));
     }
 
+    public static void main(String[] args) {
+        PosSystem posSystem = new PosSystem(args[0]);
+        posSystem.checkout();
+    }
+
     public Cart loadCart(String path) {
         Cart cart = new Cart();
         loadFromFile(path).forEach(cart::addItem);
@@ -54,6 +59,12 @@ public class PosSystem {
         return promotion;
     }
 
+    public void checkout() {
+        //TODO: move print to obj
+        printHead();
+        printShoppingDetails(cart);
+    }
+
     private List<String> loadFromFile(String path) {
         try {
             return Files.lines(Paths.get(path))
@@ -63,17 +74,6 @@ public class PosSystem {
             e.printStackTrace();
         }
         return new ArrayList<>();
-    }
-
-    public static void main(String[] args) {
-        PosSystem posSystem = new PosSystem(args[0]);
-        posSystem.checkout();
-    }
-
-    public void checkout() {
-        //TODO: move print to obj
-        printHead();
-        printShoppingDetails(cart);
     }
 
     private void printShoppingDetails(Cart cart) {

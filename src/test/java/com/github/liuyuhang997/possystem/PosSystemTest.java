@@ -19,15 +19,16 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class PosSystemTest {
-    private String cartPath = TestUtil.getResourcePath("cart.txt");
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
+    private final String SHOP_NAME = "ShopTest";
+    private String cartPath = TestUtil.getResourcePath("cart.txt");
 
     private PosSystem posSystem;
 
     @BeforeEach
     void setUp() {
-        posSystem = new PosSystem("ShopTest");
+        posSystem = new PosSystem(SHOP_NAME);
         System.setOut(new PrintStream(outContent));
     }
 
@@ -81,7 +82,7 @@ public class PosSystemTest {
     void should_print_item_num_and_price_and_unit_and_subtotal_when_pos_system_checkout() throws IOException {
         TestUtil.initFileWithContext(cartPath, asList("ITEM000001", "ITEM000001"));
 
-        PosSystem posSystemTestPrint = new PosSystem("ShopTest");
+        PosSystem posSystemTestPrint = new PosSystem(SHOP_NAME);
         posSystemTestPrint.checkout();
 
         assertThat(outContent.toString(), containsString("Shopping Details:"));
@@ -91,7 +92,7 @@ public class PosSystemTest {
 
     @Test
     void should_init_cart_and_promotions_when_init_pos_system() {
-        PosSystem posSystemTestInit = new PosSystem("ShopTest");
+        PosSystem posSystemTestInit = new PosSystem(SHOP_NAME);
 
         assertThat(posSystemTestInit.getCart(), notNullValue());
         assertThat(posSystemTestInit.getPromotions().size(), is(3));

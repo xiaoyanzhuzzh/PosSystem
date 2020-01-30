@@ -17,6 +17,8 @@ import static org.hamcrest.Matchers.contains;
 import static org.hamcrest.Matchers.is;
 
 public class DiscountTest {
+    private final String ITEM = "ITEM000001";
+    private final String ITEM_WITH_DISCOUNT = "ITEM000001:75";
     private String discountPromotionPath = TestUtil.getResourcePath(DISCOUNT.getName());
     private PosSystem posSystem;
 
@@ -40,21 +42,19 @@ public class DiscountTest {
 
     @Test
     void should_return_discount_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException {
-        String oneItem = "ITEM000001:75";
-        String oneItemName = "ITEM000001";
-        TestUtil.initFileWithContext(discountPromotionPath, Collections.singletonList(oneItem));
+        TestUtil.initFileWithContext(discountPromotionPath, Collections.singletonList(ITEM_WITH_DISCOUNT));
 
         Promotion promotion = posSystem.loadPromotion(DISCOUNT);
 
-        assertThat(promotion.getPromotionItems().keySet(), contains(oneItemName));
-        assertThat(promotion.getPromotionItems().get(oneItemName).getDiscount(), is(0.75d));
+        assertThat(promotion.getPromotionItems().keySet(), contains(ITEM));
+        assertThat(promotion.getPromotionItems().get(ITEM).getDiscount(), is(0.75d));
     }
 
     @Test
     void should_return_item_with_promoted_subtotal_when_item_in_promotion() {
-        Item item = Item.builder().name("ITEM000001").num(1d).price(1d).build();
+        Item item = Item.builder().name(ITEM).num(1d).price(1d).build();
         Discount discount = new Discount();
-        discount.addItem("ITEM000001:75");
+        discount.addItem(ITEM_WITH_DISCOUNT);
 
         discount.calculatePromotion(item);
         assertThat(item.getSubtotal(), is(0.75d));
@@ -62,7 +62,7 @@ public class DiscountTest {
 
     @Test
     void should_return_item_with_not_promoted_subtotal_when_item_not_in_promotion() {
-        Item item = Item.builder().name("ITEM000001").num(1d).price(1d).build();
+        Item item = Item.builder().name(ITEM).num(1d).price(1d).build();
         Discount discount = new Discount();
 
         discount.calculatePromotion(item);
