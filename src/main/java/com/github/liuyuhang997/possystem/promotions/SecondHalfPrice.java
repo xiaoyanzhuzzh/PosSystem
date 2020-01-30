@@ -10,6 +10,8 @@ public class SecondHalfPrice extends Promotion {
 
     @Override
     public void calculate(Item item) {
-
+        Double num = item.getNum();
+        double remainder = num % 2;
+        item.setSubtotal(((num - remainder) * 0.75d + remainder) * item.getPrice());
     }
 }

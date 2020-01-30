@@ -1,6 +1,7 @@
 package com.github.liuyuhang997.possystem.promotions;
 
 import com.github.liuyuhang997.possystem.PosSystem;
+import com.github.liuyuhang997.possystem.entities.Item;
 import com.github.liuyuhang997.possystem.exceptions.PromotionTypeErrorException;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -42,5 +43,24 @@ public class SecondHalfPriceTest {
         Promotion promotion = posSystem.loadPromotion(secondHalfPricePromotionPath, getPromotion(SECOND_HALF_PRICE));
 
         assertThat(promotion.getPromotionItems().keySet(), contains(oneItem));
+    }
+
+    @Test
+    void should_return_item_with_promoted_subtotal_when_item_in_promotion() {
+        Item item = Item.builder().name("ITEM000001").num(2d).price(1d).build();
+        SecondHalfPrice secondHalfPrice = new SecondHalfPrice();
+        secondHalfPrice.addItem("ITEM000001");
+
+        secondHalfPrice.calculatePromotion(item);
+        assertThat(item.getSubtotal(), is(1.5d));
+    }
+
+    @Test
+    void should_return_item_with_not_promoted_subtotal_when_item_not_in_promotion() {
+        Item item = Item.builder().name("ITEM000001").num(2d).price(1d).build();
+        SecondHalfPrice secondHalfPrice = new SecondHalfPrice();
+
+        secondHalfPrice.calculatePromotion(item);
+        assertThat(item.getSubtotal(), is(2d));
     }
 }
