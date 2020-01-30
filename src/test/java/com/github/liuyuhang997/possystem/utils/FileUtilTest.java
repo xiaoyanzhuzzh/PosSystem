@@ -2,7 +2,7 @@ package com.github.liuyuhang997.possystem.utils;
 
 import org.junit.jupiter.api.Test;
 
-import static com.github.liuyuhang997.possystem.enums.FileNameEnums.CART;
+import static com.github.liuyuhang997.possystem.enums.FileNameEnum.CART;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 

@@ -16,8 +16,7 @@ import static java.util.Arrays.asList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.spy;
-import static org.mockito.Mockito.when;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class PosSystemTest {
     private String cartPath = TestUtil.getResourcePath("cart.txt");
@@ -74,21 +73,27 @@ public class PosSystemTest {
 
     @Test
     void should_print_time_when_pos_system_checkout() {
-        PosSystem posSystemTestTime = spy(PosSystem.class);
-        when(posSystemTestTime.getPrintTime()).thenReturn("2020-01-29 14:00:00");
-
-        posSystemTestTime.checkout();
-        assertThat(outContent.toString(), containsString("Print time: 2020-01-29 14:00:00"));
+        posSystem.checkout();
+        assertThat(outContent.toString(), containsString("Print time:"));
     }
 
     @Test
     void should_print_item_num_and_price_and_unit_and_subtotal_when_pos_system_checkout() throws IOException {
         TestUtil.initFileWithContext(cartPath, asList("ITEM000001", "ITEM000001"));
 
-        posSystem.checkout();
+        PosSystem posSystemTestPrint = new PosSystem("ShopTest");
+        posSystemTestPrint.checkout();
 
         assertThat(outContent.toString(), containsString("Shopping Details:"));
         assertThat(outContent.toString(), containsString("ITEM000001"));
         assertThat(outContent.toString(), containsString("subTotal:"));
+    }
+
+    @Test
+    void should_init_cart_and_promotions_when_init_pos_system() {
+        PosSystem posSystemTestInit = new PosSystem("ShopTest");
+
+        assertThat(posSystemTestInit.getCart(), notNullValue());
+        assertThat(posSystemTestInit.getPromotions().size(), is(3));
     }
 }

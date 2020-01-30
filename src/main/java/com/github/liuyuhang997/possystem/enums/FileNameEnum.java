@@ -3,7 +3,7 @@ package com.github.liuyuhang997.possystem.enums;
 import lombok.Getter;
 
 @Getter
-public enum FileNameEnums {
+public enum FileNameEnum {
     CART("cart.txt"),
     BUY_TWO_GET_ONE_FREE("buy_two_get_one_free_promotion.txt"),
     DISCOUNT("discount_promotion.txt"),
@@ -11,7 +11,7 @@ public enum FileNameEnums {
 
     private String name;
 
-    FileNameEnums(String name) {
+    FileNameEnum(String name) {
         this.name = name;
     }
 }
