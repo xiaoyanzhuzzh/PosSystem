@@ -1,6 +1,7 @@
 package com.github.liuyuhang997.possystem.promotions;
 
 import com.github.liuyuhang997.possystem.PosSystem;
+import com.github.liuyuhang997.possystem.entities.Item;
 import com.github.liuyuhang997.possystem.exceptions.PromotionTypeErrorException;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
@@ -45,4 +46,24 @@ public class DiscountTest {
         assertThat(promotion.getPromotionItems().keySet(), contains(oneItemName));
         assertThat(promotion.getPromotionItems().get(oneItemName).getDiscount(), is(0.75d));
     }
+
+    @Test
+    void should_return_item_with_promoted_subtotal_when_item_in_promotion() {
+        Item item = Item.builder().name("ITEM000001").num(1d).price(1d).build();
+        Discount discount = new Discount();
+        discount.addItem("ITEM000001:75");
+
+        discount.calculatePromotion(item);
+        assertThat(item.getSubtotal(), is(0.75d));
+    }
+
+    @Test
+    void should_return_item_with_not_promoted_subtotal_when_item_not_in_promotion() {
+        Item item = Item.builder().name("ITEM000001").num(1d).price(1d).build();
+        Discount discount = new Discount();
+
+        discount.calculatePromotion(item);
+        assertThat(item.getSubtotal(), is(1d));
+    }
+
 }

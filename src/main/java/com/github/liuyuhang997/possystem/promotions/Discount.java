@@ -11,7 +11,8 @@ public class Discount extends Promotion {
     }
 
     @Override
-    public void calculatePromotion(Item item) {
-
+    public void calculate(Item item) {
+        Double discount = promotionItems.get(item.getName()).getDiscount();
+        item.setSubtotal(discount * item.getNum() * item.getPrice());
     }
 }

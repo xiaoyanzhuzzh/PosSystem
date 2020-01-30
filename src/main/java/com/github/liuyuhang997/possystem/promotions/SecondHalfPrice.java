@@ -9,7 +9,7 @@ public class SecondHalfPrice extends Promotion {
     }
 
     @Override
-    public void calculatePromotion(Item item) {
+    public void calculate(Item item) {
 
     }
 }

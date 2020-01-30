@@ -9,13 +9,9 @@ public class BuyTwoGetOneFree extends Promotion {
     }
 
     @Override
-    public void calculatePromotion(Item item) {
-        if (promotionItems.containsKey(item.getName())) {
-            Double num = item.getNum();
-            double remainder = num % 3;
-            item.setSubtotal(((num - remainder) / 3 * 2 + remainder) * item.getPrice());
-        } else {
-            item.setSubtotal(item.getNum() * item.getPrice());
-        }
+    public void calculate(Item item) {
+        Double num = item.getNum();
+        double remainder = num % 3;
+        item.setSubtotal(((num - remainder) / 3 * 2 + remainder) * item.getPrice());
     }
 }

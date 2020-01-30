@@ -20,5 +20,13 @@ public abstract class Promotion {
 
     public abstract void addItem(String lineFromFile);
 
-    public abstract void calculatePromotion(Item item);
+    public void calculatePromotion(Item item) {
+        if (promotionItems.containsKey(item.getName())) {
+            calculate(item);
+        } else {
+            item.setSubtotal(item.getNum() * item.getPrice());
+        }
+    }
+
+    protected abstract void calculate(Item item);
 }
