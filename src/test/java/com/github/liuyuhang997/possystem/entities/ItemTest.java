@@ -39,4 +39,11 @@ public class ItemTest {
 
         assertThat(item.getOriginalPrice(), is(1d));
     }
+
+    @Test
+    void should_return_round_num_when_get_subtotal() {
+        Item item = Item.builder().num(2.0).price(0.051).build();
+
+        assertThat(item.getOriginalPrice(), is(0.10d));
+    }
 }

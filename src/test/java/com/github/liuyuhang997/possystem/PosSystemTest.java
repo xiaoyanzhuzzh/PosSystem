@@ -10,6 +10,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.BUY_TWO_GET_ONE_FREE;
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.DISCOUNT;
@@ -104,9 +105,9 @@ public class PosSystemTest {
         PosSystem posSystemTestPrint = new PosSystem(SHOP_NAME);
         posSystemTestPrint.checkout();
 
-        assertThat(outContent.toString(), containsString("Shopping Details:"));
+        assertThat(outContent.toString(), containsString("Shopping details:"));
         assertThat(outContent.toString(), containsString(ITEM));
-        assertThat(outContent.toString(), containsString("subTotal:"));
+        assertThat(outContent.toString(), containsString("subtotal:"));
     }
 
     @Test
@@ -118,8 +119,8 @@ public class PosSystemTest {
     }
 
     @Test
-    void should_calculate_most_cheap_subtotal_when_pos_system_calculate_promotion() throws IOException {
-        initCartAndPromotionsFile();
+    void should_choose_buy_two_get_one_free_when_pos_system_calculate_promotion() throws IOException {
+        initCartAndPromotionsFile(asList(ITEM, ITEM, ITEM), ":75");
         PosSystem posSystemTestPromotion = new PosSystem(SHOP_NAME);
 
         posSystemTestPromotion.calculatePromotion();
@@ -128,8 +129,28 @@ public class PosSystemTest {
     }
 
     @Test
+    void should_choose_discount_when_pos_system_calculate_promotion() throws IOException {
+        initCartAndPromotionsFile(asList(ITEM, ITEM, ITEM), ":65");
+        PosSystem posSystemTestPromotion = new PosSystem(SHOP_NAME);
+
+        posSystemTestPromotion.calculatePromotion();
+
+        assertThat(posSystemTestPromotion.getCart().getItems().get(ITEM).getSubtotal(), is(1.95d));
+    }
+
+    @Test
+    void should_choose_second_half_price_when_pos_system_calculate_promotion() throws IOException {
+        initCartAndPromotionsFile(asList(ITEM, ITEM), ":80");
+        PosSystem posSystemTestPromotion = new PosSystem(SHOP_NAME);
+
+        posSystemTestPromotion.calculatePromotion();
+
+        assertThat(posSystemTestPromotion.getCart().getItems().get(ITEM).getSubtotal(), is(1.5d));
+    }
+
+    @Test
     void should_print_total_price_when_pos_system_running() throws IOException {
-        initCartAndPromotionsFile();
+        initCartAndPromotionsFile(asList(ITEM, ITEM, ITEM), ":75");
         PosSystem posSystemTestTotal = new PosSystem(SHOP_NAME);
 
         posSystemTestTotal.checkout();
@@ -140,10 +161,10 @@ public class PosSystemTest {
         assertThat(outContent.toString(), containsString("Total price: 2.00"));
     }
 
-    private void initCartAndPromotionsFile() throws IOException {
-        TestUtil.initFileWithContext(cartPath, asList(ITEM, ITEM, ITEM));
+    private void initCartAndPromotionsFile(List<String> items, String discount) throws IOException {
+        TestUtil.initFileWithContext(cartPath, items);
         TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, singletonList(ITEM));
-        TestUtil.initFileWithContext(discountPromotionPath, singletonList(ITEM + ":75"));
+        TestUtil.initFileWithContext(discountPromotionPath, singletonList(ITEM + discount));
         TestUtil.initFileWithContext(secondHalfPricePromotionPath, singletonList(ITEM));
     }
 }

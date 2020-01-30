@@ -109,12 +109,12 @@ public class PosSystem {
         String itemTitleFormat = itemFormat.replace(" ", "|");
 
         printLine();
-        System.out.println("Shopping Details:");
+        System.out.println("Shopping details:");
         System.out.println(format(itemTitleFormat, "itemName", "num", "price", "unit"));
         cart.getItems()
                 .forEach((itemName, item) -> {
                     System.out.println(format(itemFormat, item.getName(), roundNum(item.getNum()), roundNum(item.getPrice()), item.getUnit()));
-                    System.out.println(format("%40s", "subTotal: " + roundNum(item.getOriginalPrice())));
+                    System.out.println(format("%40s", "subtotal: " + roundNum(item.getOriginalPrice())));
                 });
     }
 

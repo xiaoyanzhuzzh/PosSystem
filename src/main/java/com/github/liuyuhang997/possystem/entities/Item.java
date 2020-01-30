@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 @Getter
 @Setter
 @Builder
@@ -30,7 +33,17 @@ public class Item {
         return Item.builder().name(name).num(num).price(1d).unit("KG").build();
     }
 
+    public Double getSubtotal() {
+        return round(subtotal);
+    }
+
     public double getOriginalPrice() {
-        return num * price;
+        return round(num * price);
+    }
+
+    private double round(Double num) {
+        BigDecimal bigDecimal = new BigDecimal(Double.toString(num));
+        bigDecimal = bigDecimal.setScale(2, RoundingMode.HALF_UP);
+        return bigDecimal.doubleValue();
     }
 }
