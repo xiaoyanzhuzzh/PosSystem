@@ -54,8 +54,8 @@ public class BuyTwoGetOneFreeTest {
         BuyTwoGetOneFree buyTwoGetOneFree = new BuyTwoGetOneFree();
         buyTwoGetOneFree.addItem(ITEM);
 
-        buyTwoGetOneFree.calculatePromotion(item);
-        assertThat(item.getSubtotal(), is(4d));
+        double subtotal = buyTwoGetOneFree.calculatePromotion(item);
+        assertThat(subtotal, is(4d));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class BuyTwoGetOneFreeTest {
         Item item = Item.builder().name(ITEM).num(5d).price(1d).build();
         BuyTwoGetOneFree buyTwoGetOneFree = new BuyTwoGetOneFree();
 
-        buyTwoGetOneFree.calculatePromotion(item);
-        assertThat(item.getSubtotal(), is(5d));
+        double subtotal = buyTwoGetOneFree.calculatePromotion(item);
+        assertThat(subtotal, is(5d));
     }
 }

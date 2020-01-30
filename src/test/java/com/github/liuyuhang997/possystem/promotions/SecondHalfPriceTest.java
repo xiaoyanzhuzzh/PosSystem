@@ -54,8 +54,8 @@ public class SecondHalfPriceTest {
         SecondHalfPrice secondHalfPrice = new SecondHalfPrice();
         secondHalfPrice.addItem(ITEM);
 
-        secondHalfPrice.calculatePromotion(item);
-        assertThat(item.getSubtotal(), is(1.5d));
+        double subtotal = secondHalfPrice.calculatePromotion(item);
+        assertThat(subtotal, is(1.5d));
     }
 
     @Test
@@ -63,7 +63,7 @@ public class SecondHalfPriceTest {
         Item item = Item.builder().name(ITEM).num(2d).price(1d).build();
         SecondHalfPrice secondHalfPrice = new SecondHalfPrice();
 
-        secondHalfPrice.calculatePromotion(item);
-        assertThat(item.getSubtotal(), is(2d));
+        double subtotal = secondHalfPrice.calculatePromotion(item);
+        assertThat(subtotal, is(2d));
     }
 }

@@ -56,8 +56,8 @@ public class DiscountTest {
         Discount discount = new Discount();
         discount.addItem(ITEM_WITH_DISCOUNT);
 
-        discount.calculatePromotion(item);
-        assertThat(item.getSubtotal(), is(0.75d));
+        double subtotal = discount.calculatePromotion(item);
+        assertThat(subtotal, is(0.75d));
     }
 
     @Test
@@ -65,8 +65,8 @@ public class DiscountTest {
         Item item = Item.builder().name(ITEM).num(1d).price(1d).build();
         Discount discount = new Discount();
 
-        discount.calculatePromotion(item);
-        assertThat(item.getSubtotal(), is(1d));
+        double subtotal = discount.calculatePromotion(item);
+        assertThat(subtotal, is(1d));
     }
 
 }

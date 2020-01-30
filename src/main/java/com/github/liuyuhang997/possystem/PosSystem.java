@@ -65,6 +65,19 @@ public class PosSystem {
         printShoppingDetails(cart);
     }
 
+    public void calculatePromotion() {
+        cart.getItems()
+                .forEach((itemName, item) -> {
+                    item.setSubtotal(item.getNum() * item.getPrice());
+                    promotions.forEach(promotion -> {
+                        double promotionSubtotal = promotion.calculatePromotion(item);
+                        if(promotionSubtotal < item.getSubtotal()){
+                            item.setSubtotal(promotionSubtotal);
+                        }
+                    });
+                });
+    }
+
     private List<String> loadFromFile(String path) {
         try {
             return Files.lines(Paths.get(path))
@@ -84,7 +97,7 @@ public class PosSystem {
         System.out.println("Shopping Details:");
         System.out.println(format(itemTitleFormat, "itemName", "num", "price", "unit"));
         cart.getItems()
-                .forEach((key, item) -> {
+                .forEach((itemName, item) -> {
                     System.out.println(format(itemFormat, item.getName(), roundNum(item.getNum()), roundNum(item.getPrice()), item.getUnit()));
                     System.out.println(format("%40s", "subTotal: " + roundNum(item.getNum() * item.getPrice())));
                 });
