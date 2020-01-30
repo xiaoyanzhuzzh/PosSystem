@@ -63,7 +63,7 @@ public class ConsolePrintTest {
         assertThat(outContent.toString(), containsString(ITEM_1));
         assertThat(outContent.toString(), containsString(ITEM_3));
         assertThat(outContent.toString(), containsString(ITEM_5));
-        assertThat(outContent.toString(), containsString("subtotal:"));
+        assertThat(outContent.toString(), containsString("Subtotal:"));
     }
 
     @Test

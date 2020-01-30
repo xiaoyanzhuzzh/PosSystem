@@ -6,6 +6,19 @@ import com.github.liuyuhang997.possystem.entities.Item;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static com.github.liuyuhang997.possystem.print.PrintFormat.AFTER_DISCOUNT_PRICE;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.BEFORE_DISCOUNT_PRICE;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.DIRECTION_RIGHT;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.DISCOUNT_SPREAD;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.ITEM;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.ITEM_TITLE;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.ITEM_TITLE_NAME;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.PRINT_TIME;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.SHOPPING_DETAILS;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.SHOP_NAME;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.SUBTOTAL;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.TOTAL_PRICE;
+import static com.github.liuyuhang997.possystem.print.PrintFormat.YYYY_MM_DD_HH_MM_SS;
 import static java.lang.String.format;
 
 public class ConsolePrint {
@@ -25,21 +38,18 @@ public class ConsolePrint {
 
     private void printHead() {
         printLine();
-        System.out.println(format("Shop name: %s", shopName));
-        System.out.println(format("Print time: %s", getPrintTime()));
+        printAndFormat(SHOP_NAME, shopName);
+        printAndFormat(PRINT_TIME, getPrintTime());
     }
 
     private void printShoppingDetails(Cart cart) {
-        String itemFormat = "%-20s %-6s %-6s %-5s";
-        String itemTitleFormat = itemFormat.replace(" ", "|");
-
         printLine();
-        System.out.println("Shopping details:");
-        System.out.println(format(itemTitleFormat, "itemName", "num", "price", "unit"));
+        System.out.println(SHOPPING_DETAILS);
+        printAndFormat(ITEM_TITLE, ITEM_TITLE_NAME);
         cart.getItems()
                 .forEach((itemName, item) -> {
-                    System.out.println(format(itemFormat, item.getName(), roundNum(item.getNum()), roundNum(item.getPrice()), item.getUnit()));
-                    System.out.println(format("%40s", "subtotal: " + roundNum(item.getOriginalPrice())));
+                    printAndFormat(ITEM, item.getName(), roundNum(item.getNum()), roundNum(item.getPrice()), item.getUnit());
+                    printAndFormat(DIRECTION_RIGHT, SUBTOTAL + roundNum(item.getOriginalPrice()));
                 });
     }
 
@@ -47,11 +57,15 @@ public class ConsolePrint {
         double beforeDiscount = cart.getItems().values().stream().mapToDouble(Item::getOriginalPrice).sum();
         double afterDiscount = cart.getItems().values().stream().mapToDouble(Item::getSubtotal).sum();
         printLine();
-        System.out.println(format("%40s", "Before discount price: " + roundNum(beforeDiscount)));
-        System.out.println(format("%40s", "After discount price: " + roundNum(afterDiscount)));
-        System.out.println(format("%40s", "Discount spread: " + roundNum(beforeDiscount - afterDiscount)));
+        printAndFormat(DIRECTION_RIGHT, BEFORE_DISCOUNT_PRICE + roundNum(beforeDiscount));
+        printAndFormat(DIRECTION_RIGHT, AFTER_DISCOUNT_PRICE + roundNum(afterDiscount));
+        printAndFormat(DIRECTION_RIGHT, DISCOUNT_SPREAD + roundNum(beforeDiscount - afterDiscount));
         printLine();
-        System.out.println(format("%40s", "Total price: " + roundNum(afterDiscount)));
+        printAndFormat(DIRECTION_RIGHT, TOTAL_PRICE + roundNum(afterDiscount));
+    }
+
+    private void printAndFormat(String format, Object... args) {
+        System.out.println(format(format, args));
     }
 
     private String roundNum(Double number) {
@@ -59,11 +73,11 @@ public class ConsolePrint {
     }
 
     private void printLine() {
-        System.out.println(format("%40s", "").replace(" ", "-"));
+        System.out.println(format(DIRECTION_RIGHT, "").replace(" ", "-"));
     }
 
     protected String getPrintTime() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(YYYY_MM_DD_HH_MM_SS);
         return LocalDateTime.now().format(formatter);
     }
 }
