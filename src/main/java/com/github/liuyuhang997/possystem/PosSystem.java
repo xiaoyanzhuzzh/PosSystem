@@ -1,6 +1,7 @@
 package com.github.liuyuhang997.possystem;
 
 import com.github.liuyuhang997.possystem.entities.Cart;
+import com.github.liuyuhang997.possystem.entities.Item;
 import com.github.liuyuhang997.possystem.enums.FileNameEnum;
 import com.github.liuyuhang997.possystem.enums.PromotionEnum;
 import com.github.liuyuhang997.possystem.factories.PromotionFactory;
@@ -42,7 +43,8 @@ public class PosSystem {
     }
 
     public static void main(String[] args) {
-        PosSystem posSystem = new PosSystem(args[0]);
+        String shopName = args.length > 0 ? args[0] : "Shop";
+        PosSystem posSystem = new PosSystem(shopName);
         posSystem.checkout();
     }
 
@@ -60,18 +62,20 @@ public class PosSystem {
     }
 
     public void checkout() {
+        calculatePromotion();
         //TODO: move print to obj
         printHead();
         printShoppingDetails(cart);
+        printTotal();
     }
 
     public void calculatePromotion() {
         cart.getItems()
                 .forEach((itemName, item) -> {
-                    item.setSubtotal(item.getNum() * item.getPrice());
+                    item.setSubtotal(item.getOriginalPrice());
                     promotions.forEach(promotion -> {
                         double promotionSubtotal = promotion.calculatePromotion(item);
-                        if(promotionSubtotal < item.getSubtotal()){
+                        if (promotionSubtotal < item.getSubtotal()) {
                             item.setSubtotal(promotionSubtotal);
                         }
                     });
@@ -89,6 +93,17 @@ public class PosSystem {
         return new ArrayList<>();
     }
 
+    private void printTotal() {
+        double beforeDiscount = cart.getItems().values().stream().mapToDouble(Item::getOriginalPrice).sum();
+        double afterDiscount = cart.getItems().values().stream().mapToDouble(Item::getSubtotal).sum();
+        printLine();
+        System.out.println(format("%40s", "Before discount price: " + roundNum(beforeDiscount)));
+        System.out.println(format("%40s", "After discount price: " + roundNum(afterDiscount)));
+        System.out.println(format("%40s", "Discount spread: " + roundNum(beforeDiscount - afterDiscount)));
+        printLine();
+        System.out.println(format("%40s", "Total price: " + roundNum(afterDiscount)));
+    }
+
     private void printShoppingDetails(Cart cart) {
         String itemFormat = "%-20s %-6s %-6s %-5s";
         String itemTitleFormat = itemFormat.replace(" ", "|");
@@ -99,7 +114,7 @@ public class PosSystem {
         cart.getItems()
                 .forEach((itemName, item) -> {
                     System.out.println(format(itemFormat, item.getName(), roundNum(item.getNum()), roundNum(item.getPrice()), item.getUnit()));
-                    System.out.println(format("%40s", "subTotal: " + roundNum(item.getNum() * item.getPrice())));
+                    System.out.println(format("%40s", "subTotal: " + roundNum(item.getOriginalPrice())));
                 });
     }
 

@@ -81,7 +81,13 @@ public class PosSystemTest {
 
     @Test
     void should_print_shop_name_when_pos_system_running() {
-        PosSystem.main(new String[]{"Shop"});
+        PosSystem.main(new String[]{"ShopTest"});
+        assertThat(outContent.toString(), containsString("Shop name: ShopTest"));
+    }
+
+    @Test
+    void should_print_default_shop_name_when_pos_system_running_without_args() {
+        PosSystem.main(new String[]{});
         assertThat(outContent.toString(), containsString("Shop name: Shop"));
     }
 
@@ -113,15 +119,31 @@ public class PosSystemTest {
 
     @Test
     void should_calculate_most_cheap_subtotal_when_pos_system_calculate_promotion() throws IOException {
-        TestUtil.initFileWithContext(cartPath, asList(ITEM, ITEM, ITEM));
-        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, singletonList(ITEM));
-        TestUtil.initFileWithContext(discountPromotionPath, singletonList(ITEM + ":75"));
-        TestUtil.initFileWithContext(secondHalfPricePromotionPath, singletonList(ITEM));
-
+        initCartAndPromotionsFile();
         PosSystem posSystemTestPromotion = new PosSystem(SHOP_NAME);
 
         posSystemTestPromotion.calculatePromotion();
 
         assertThat(posSystemTestPromotion.getCart().getItems().get(ITEM).getSubtotal(), is(2d));
+    }
+
+    @Test
+    void should_print_total_price_when_pos_system_running() throws IOException {
+        initCartAndPromotionsFile();
+        PosSystem posSystemTestTotal = new PosSystem(SHOP_NAME);
+
+        posSystemTestTotal.checkout();
+
+        assertThat(outContent.toString(), containsString("Before discount price: 3.00"));
+        assertThat(outContent.toString(), containsString("After discount price: 2.00"));
+        assertThat(outContent.toString(), containsString("Discount spread: 1.00"));
+        assertThat(outContent.toString(), containsString("Total price: 2.00"));
+    }
+
+    private void initCartAndPromotionsFile() throws IOException {
+        TestUtil.initFileWithContext(cartPath, asList(ITEM, ITEM, ITEM));
+        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, singletonList(ITEM));
+        TestUtil.initFileWithContext(discountPromotionPath, singletonList(ITEM + ":75"));
+        TestUtil.initFileWithContext(secondHalfPricePromotionPath, singletonList(ITEM));
     }
 }

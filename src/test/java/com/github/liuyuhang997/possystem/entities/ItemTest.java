@@ -32,4 +32,11 @@ public class ItemTest {
         assertThat(item.getPrice(), is(1d));
         assertThat(item.getUnit(), is("KG"));
     }
+
+    @Test
+    void should_return_original_price() {
+        Item item = Item.builder().num(2.0).price(0.5).build();
+
+        assertThat(item.getOriginalPrice(), is(1d));
+    }
 }

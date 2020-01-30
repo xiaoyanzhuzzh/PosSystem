@@ -29,4 +29,8 @@ public class Item {
     private static Item buildItem(String name, Double num) {
         return Item.builder().name(name).num(num).price(1d).unit("KG").build();
     }
+
+    public double getOriginalPrice() {
+        return num * price;
+    }
 }
