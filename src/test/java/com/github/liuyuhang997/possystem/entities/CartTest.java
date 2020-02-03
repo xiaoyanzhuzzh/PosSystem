@@ -25,11 +25,10 @@ class CartTest {
 
     @Test
     void should_add_item_num_when_cart_exist_the_item() {
-        String item1 = ITEM;
-        cart.addItem(item1);
-        assertThat(cart.getItems().get(item1).getNum(), is(1d));
+        cart.addItem(ITEM);
+        assertThat(cart.getItems().get(ITEM).getNum(), is(1d));
 
-        cart.addItem(item1);
-        assertThat(cart.getItems().get(item1).getNum(), is(2d));
+        cart.addItem(ITEM);
+        assertThat(cart.getItems().get(ITEM).getNum(), is(2d));
     }
 }

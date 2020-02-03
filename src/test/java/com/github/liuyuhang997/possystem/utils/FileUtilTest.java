@@ -6,11 +6,14 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.CART;
+import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 
 public class FileUtilTest {
@@ -31,6 +34,22 @@ public class FileUtilTest {
     }
 
     @Test
+    void should_return_empty_list_when_path_not_exist() {
+        List<String> lines = FileUtil.loadFromFile("error_path");
+
+        assertThat(lines, hasSize(0));
+    }
+
+    @Test
+    void should_filter_empty_line_when_load_from_file() throws IOException {
+        TestUtil.initFileWithContext(CART_PATH, asList(ITEM, ""));
+
+        List<String> lines = FileUtil.loadFromFile(CART_PATH);
+
+        assertThat(lines, hasSize(1));
+    }
+
+    @Test
     void should_return_empty_cart_when_file_util_load_file() {
         Cart cart = FileUtil.loadCart(CART_PATH);
 
@@ -39,12 +58,11 @@ public class FileUtilTest {
 
     @Test
     void should_return_cart_have_one_item_when_file_have_one_line() throws IOException {
-        String oneItem = ITEM;
-        TestUtil.initFileWithContext(CART_PATH, singletonList(oneItem));
+        TestUtil.initFileWithContext(CART_PATH, singletonList(ITEM));
 
         Cart cart = FileUtil.loadCart(CART_PATH);
 
-        assertThat(cart.getItems().get(oneItem).getNum(), is(1d));
+        assertThat(cart.getItems().get(ITEM).getNum(), is(1d));
     }
 
     @Test
