@@ -1,10 +1,9 @@
 package com.github.liuyuhang997.possystem.promotions;
 
-import com.github.liuyuhang997.possystem.PosSystem;
 import com.github.liuyuhang997.possystem.entities.Item;
+import com.github.liuyuhang997.possystem.utils.FileUtil;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -19,32 +18,26 @@ import static org.hamcrest.Matchers.is;
 public class DiscountTest {
     private final String ITEM = "ITEM00001";
     private final String ITEM_WITH_DISCOUNT = "ITEM00001:75";
-    private String discountPromotionPath = TestUtil.getResourcePath(DISCOUNT.getName());
-    private PosSystem posSystem;
-
-    @BeforeEach
-    void setUp() {
-        posSystem = new PosSystem("ShopTest");
-    }
+    private final String DISCOUNT_PROMOTION_PATH = TestUtil.getResourcePath(DISCOUNT.getName());
 
     @AfterEach
     void emptyFile() throws IOException {
-        TestUtil.deleteFile(discountPromotionPath);
-        TestUtil.initFileWithContext(discountPromotionPath, new ArrayList<>());
+        TestUtil.deleteFile(DISCOUNT_PROMOTION_PATH);
+        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, new ArrayList<>());
     }
 
     @Test
     void should_return_discount_promotion_when_pos_system_load_promotion_file() {
-        Promotion promotion = posSystem.loadPromotion(DISCOUNT);
+        Promotion promotion = FileUtil.loadPromotion(DISCOUNT);
 
         assertThat(promotion.getPromotionItems().size(), is(0));
     }
 
     @Test
     void should_return_discount_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException {
-        TestUtil.initFileWithContext(discountPromotionPath, Collections.singletonList(ITEM_WITH_DISCOUNT));
+        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, Collections.singletonList(ITEM_WITH_DISCOUNT));
 
-        Promotion promotion = posSystem.loadPromotion(DISCOUNT);
+        Promotion promotion = FileUtil.loadPromotion(DISCOUNT);
 
         assertThat(promotion.getPromotionItems().keySet(), contains(ITEM));
         assertThat(promotion.getPromotionItems().get(ITEM).getDiscount(), is(0.75d));

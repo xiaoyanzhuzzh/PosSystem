@@ -1,9 +1,6 @@
 package com.github.liuyuhang997.possystem;
 
 import com.github.liuyuhang997.possystem.entities.Cart;
-import com.github.liuyuhang997.possystem.enums.FileNameEnum;
-import com.github.liuyuhang997.possystem.enums.PromotionEnum;
-import com.github.liuyuhang997.possystem.factories.PromotionFactory;
 import com.github.liuyuhang997.possystem.print.ConsolePrint;
 import com.github.liuyuhang997.possystem.promotions.Promotion;
 import com.github.liuyuhang997.possystem.utils.FileUtil;
@@ -16,7 +13,8 @@ import static com.github.liuyuhang997.possystem.enums.FileNameEnum.BUY_TWO_GET_O
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.CART;
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.DISCOUNT;
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.SECOND_HALF_PRICE;
-import static com.github.liuyuhang997.possystem.utils.FileUtil.loadFromFile;
+import static com.github.liuyuhang997.possystem.utils.FileUtil.loadCart;
+import static com.github.liuyuhang997.possystem.utils.FileUtil.loadPromotion;
 import static java.util.Arrays.asList;
 
 @Getter
@@ -46,19 +44,6 @@ public class PosSystem {
         calculatePromotion();
         ConsolePrint consolePrint = new ConsolePrint(shopName, cart);
         consolePrint.printReceipt();
-    }
-
-    public Promotion loadPromotion(FileNameEnum fileName) {
-        String path = FileUtil.getResourcePath(fileName.getName());
-        Promotion promotion = PromotionFactory.getPromotion(PromotionEnum.valueOf(fileName.toString()));
-        loadFromFile(path).forEach(promotion::addItem);
-        return promotion;
-    }
-
-    protected Cart loadCart(String path) {
-        Cart cart = new Cart();
-        loadFromFile(path).forEach(cart::addItem);
-        return cart;
     }
 
     protected void calculatePromotion() {

@@ -1,10 +1,9 @@
 package com.github.liuyuhang997.possystem.promotions;
 
-import com.github.liuyuhang997.possystem.PosSystem;
 import com.github.liuyuhang997.possystem.entities.Item;
+import com.github.liuyuhang997.possystem.utils.FileUtil;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -18,32 +17,26 @@ import static org.hamcrest.Matchers.is;
 
 public class BuyTwoGetOneFreeTest {
     private final String ITEM = "ITEM00001";
-    private String buyTwoGetOneFreePromotionPath = TestUtil.getResourcePath(BUY_TWO_GET_ONE_FREE.getName());
-    private PosSystem posSystem;
-
-    @BeforeEach
-    void setUp() {
-        posSystem = new PosSystem("ShopTest");
-    }
+    private final String BUY_TWO_GET_ONE_FREE_PROMOTION_PATH = TestUtil.getResourcePath(BUY_TWO_GET_ONE_FREE.getName());
 
     @AfterEach
     void emptyFile() throws IOException {
-        TestUtil.deleteFile(buyTwoGetOneFreePromotionPath);
-        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, new ArrayList<>());
+        TestUtil.deleteFile(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH);
+        TestUtil.initFileWithContext(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH, new ArrayList<>());
     }
 
     @Test
     void should_return_buy_two_get_one_free_promotion_when_pos_system_load_promotion_file() {
-        Promotion promotion = posSystem.loadPromotion(BUY_TWO_GET_ONE_FREE);
+        Promotion promotion = FileUtil.loadPromotion(BUY_TWO_GET_ONE_FREE);
 
         assertThat(promotion.getPromotionItems().size(), is(0));
     }
 
     @Test
     void should_return_buy_two_get_one_free_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException {
-        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, Collections.singletonList(ITEM));
+        TestUtil.initFileWithContext(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH, Collections.singletonList(ITEM));
 
-        Promotion promotion = posSystem.loadPromotion(BUY_TWO_GET_ONE_FREE);
+        Promotion promotion = FileUtil.loadPromotion(BUY_TWO_GET_ONE_FREE);
 
         assertThat(promotion.getPromotionItems().keySet(), contains(ITEM));
     }

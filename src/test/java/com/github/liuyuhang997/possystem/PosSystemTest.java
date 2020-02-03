@@ -1,9 +1,7 @@
 package com.github.liuyuhang997.possystem;
 
-import com.github.liuyuhang997.possystem.entities.Cart;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -22,55 +20,21 @@ import static org.hamcrest.Matchers.notNullValue;
 public class PosSystemTest {
     private final String SHOP_NAME = "ShopTest";
     private final String ITEM = "ITEM00001";
-    private String cartPath = TestUtil.getResourcePath("cart.txt");
-    private String buyTwoGetOneFreePromotionPath = TestUtil.getResourcePath(BUY_TWO_GET_ONE_FREE.getName());
-    private String discountPromotionPath = TestUtil.getResourcePath(DISCOUNT.getName());
-    private String secondHalfPricePromotionPath = TestUtil.getResourcePath(SECOND_HALF_PRICE.getName());
-
-    private PosSystem posSystem;
-
-    @BeforeEach
-    void setUp() {
-        posSystem = new PosSystem(SHOP_NAME);
-    }
+    private final String CART_PATH = TestUtil.getResourcePath("cart.txt");
+    private final String BUY_TWO_GET_ONE_FREE_PROMOTION_PATH = TestUtil.getResourcePath(BUY_TWO_GET_ONE_FREE.getName());
+    private final String DISCOUNT_PROMOTION_PATH = TestUtil.getResourcePath(DISCOUNT.getName());
+    private final String SECOND_HALF_PRICE_PROMOTION_PATH = TestUtil.getResourcePath(SECOND_HALF_PRICE.getName());
 
     @AfterEach
     void emptyFile() throws IOException {
-        TestUtil.deleteFile(cartPath);
-        TestUtil.deleteFile(buyTwoGetOneFreePromotionPath);
-        TestUtil.deleteFile(discountPromotionPath);
-        TestUtil.deleteFile(secondHalfPricePromotionPath);
-        TestUtil.initFileWithContext(cartPath, new ArrayList<>());
-        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, new ArrayList<>());
-        TestUtil.initFileWithContext(discountPromotionPath, new ArrayList<>());
-        TestUtil.initFileWithContext(secondHalfPricePromotionPath, new ArrayList<>());
-    }
-
-    @Test
-    void should_return_empty_cart_when_pos_system_load_file() {
-        Cart cart = posSystem.loadCart(cartPath);
-
-        assertThat(cart.getItems().size(), is(0));
-    }
-
-    @Test
-    void should_return_cart_have_one_item_when_file_have_one_line() throws IOException {
-        String oneItem = ITEM;
-        TestUtil.initFileWithContext(cartPath, singletonList(oneItem));
-
-        Cart cart = posSystem.loadCart(cartPath);
-
-        assertThat(cart.getItems().get(oneItem).getNum(), is(1d));
-    }
-
-    @Test
-    void should_return_correct_num_of_item_when_file_have_item_with_num() throws IOException {
-        String oneItemWithNum = ITEM + "-2";
-        TestUtil.initFileWithContext(cartPath, singletonList(oneItemWithNum));
-
-        Cart cart = posSystem.loadCart(cartPath);
-
-        assertThat(cart.getItems().get(ITEM).getNum(), is(2d));
+        TestUtil.deleteFile(CART_PATH);
+        TestUtil.deleteFile(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH);
+        TestUtil.deleteFile(DISCOUNT_PROMOTION_PATH);
+        TestUtil.deleteFile(SECOND_HALF_PRICE_PROMOTION_PATH);
+        TestUtil.initFileWithContext(CART_PATH, new ArrayList<>());
+        TestUtil.initFileWithContext(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH, new ArrayList<>());
+        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, new ArrayList<>());
+        TestUtil.initFileWithContext(SECOND_HALF_PRICE_PROMOTION_PATH, new ArrayList<>());
     }
 
     @Test
@@ -112,9 +76,9 @@ public class PosSystemTest {
     }
 
     private void initCartAndPromotionsFile(List<String> items, String discount) throws IOException {
-        TestUtil.initFileWithContext(cartPath, items);
-        TestUtil.initFileWithContext(buyTwoGetOneFreePromotionPath, singletonList(ITEM));
-        TestUtil.initFileWithContext(discountPromotionPath, singletonList(ITEM + discount));
-        TestUtil.initFileWithContext(secondHalfPricePromotionPath, singletonList(ITEM));
+        TestUtil.initFileWithContext(CART_PATH, items);
+        TestUtil.initFileWithContext(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH, singletonList(ITEM));
+        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, singletonList(ITEM + discount));
+        TestUtil.initFileWithContext(SECOND_HALF_PRICE_PROMOTION_PATH, singletonList(ITEM));
     }
 }

@@ -14,8 +14,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
 public class ConsolePrintTest {
-    private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-    private final PrintStream originalOut = System.out;
+    private final ByteArrayOutputStream OUT_CONTENT = new ByteArrayOutputStream();
+    private final PrintStream ORIGINAL_OUT = System.out;
     private final String ITEM_1 = "ITEM00001";
     private final String ITEM_3 = "ITEM00003";
     private final String ITEM_5 = "ITEM00005";
@@ -29,51 +29,51 @@ public class ConsolePrintTest {
         cart.getItems().put(ITEM_3, buildItem(2d, ITEM_3, 1.5d));
         cart.getItems().put(ITEM_5, buildItem(3d, ITEM_5, 2d));
         consolePrint = new ConsolePrint("ShopTest", cart);
-        System.setOut(new PrintStream(outContent));
+        System.setOut(new PrintStream(OUT_CONTENT));
     }
 
     @AfterEach
     void tearDown() {
-        System.setOut(originalOut);
+        System.setOut(ORIGINAL_OUT);
     }
 
     @Test
     void should_print_shop_name_when_pos_system_running() {
         PosSystem.main(new String[]{"ShopTest"});
-        assertThat(outContent.toString(), containsString("Shop name: ShopTest"));
+        assertThat(OUT_CONTENT.toString(), containsString("Shop name: ShopTest"));
     }
 
     @Test
     void should_print_default_shop_name_when_pos_system_running_without_args() {
         PosSystem.main(new String[]{});
-        assertThat(outContent.toString(), containsString("Shop name: Shop"));
+        assertThat(OUT_CONTENT.toString(), containsString("Shop name: Shop"));
     }
 
     @Test
     void should_print_time_when_pos_system_checkout() {
         consolePrint.printReceipt();
-        assertThat(outContent.toString(), containsString("Print time:"));
+        assertThat(OUT_CONTENT.toString(), containsString("Print time:"));
     }
 
     @Test
     void should_print_item_num_and_price_and_unit_and_subtotal_when_pos_system_checkout() {
         consolePrint.printReceipt();
 
-        assertThat(outContent.toString(), containsString("Shopping details:"));
-        assertThat(outContent.toString(), containsString(ITEM_1));
-        assertThat(outContent.toString(), containsString(ITEM_3));
-        assertThat(outContent.toString(), containsString(ITEM_5));
-        assertThat(outContent.toString(), containsString("Subtotal:"));
+        assertThat(OUT_CONTENT.toString(), containsString("Shopping details:"));
+        assertThat(OUT_CONTENT.toString(), containsString(ITEM_1));
+        assertThat(OUT_CONTENT.toString(), containsString(ITEM_3));
+        assertThat(OUT_CONTENT.toString(), containsString(ITEM_5));
+        assertThat(OUT_CONTENT.toString(), containsString("Subtotal:"));
     }
 
     @Test
     void should_print_total_price_when_pos_system_running() {
         consolePrint.printReceipt();
 
-        assertThat(outContent.toString(), containsString("Before discount price: 10.00"));
-        assertThat(outContent.toString(), containsString("After discount price: 7.25"));
-        assertThat(outContent.toString(), containsString("Discount spread: 2.75"));
-        assertThat(outContent.toString(), containsString("Total price: 7.25"));
+        assertThat(OUT_CONTENT.toString(), containsString("Before discount price: 10.00"));
+        assertThat(OUT_CONTENT.toString(), containsString("After discount price: 7.25"));
+        assertThat(OUT_CONTENT.toString(), containsString("Discount spread: 2.75"));
+        assertThat(OUT_CONTENT.toString(), containsString("Total price: 7.25"));
     }
 
     private Item buildItem(double num, String name, double subtotal) {

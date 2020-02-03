@@ -1,10 +1,9 @@
 package com.github.liuyuhang997.possystem.promotions;
 
-import com.github.liuyuhang997.possystem.PosSystem;
 import com.github.liuyuhang997.possystem.entities.Item;
+import com.github.liuyuhang997.possystem.utils.FileUtil;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -18,32 +17,26 @@ import static org.hamcrest.Matchers.is;
 
 public class SecondHalfPriceTest {
     private final String ITEM = "ITEM00001";
-    private String secondHalfPricePromotionPath = TestUtil.getResourcePath(SECOND_HALF_PRICE.getName());
-    private PosSystem posSystem;
-
-    @BeforeEach
-    void setUp() {
-        posSystem = new PosSystem("ShopTest");
-    }
+    private final String SECOND_HALF_PRICE_PROMOTION_PATH = TestUtil.getResourcePath(SECOND_HALF_PRICE.getName());
 
     @AfterEach
     void emptyFile() throws IOException {
-        TestUtil.deleteFile(secondHalfPricePromotionPath);
-        TestUtil.initFileWithContext(secondHalfPricePromotionPath, new ArrayList<>());
+        TestUtil.deleteFile(SECOND_HALF_PRICE_PROMOTION_PATH);
+        TestUtil.initFileWithContext(SECOND_HALF_PRICE_PROMOTION_PATH, new ArrayList<>());
     }
 
     @Test
     void should_return_second_half_price_promotion_when_pos_system_load_promotion_file() {
-        Promotion promotion = posSystem.loadPromotion(SECOND_HALF_PRICE);
+        Promotion promotion = FileUtil.loadPromotion(SECOND_HALF_PRICE);
 
         assertThat(promotion.getPromotionItems().size(), is(0));
     }
 
     @Test
     void should_return_second_half_price_promotion_has_one_item_when_pos_system_load_promotion_file() throws IOException {
-        TestUtil.initFileWithContext(secondHalfPricePromotionPath, Collections.singletonList(ITEM));
+        TestUtil.initFileWithContext(SECOND_HALF_PRICE_PROMOTION_PATH, Collections.singletonList(ITEM));
 
-        Promotion promotion = posSystem.loadPromotion(SECOND_HALF_PRICE);
+        Promotion promotion = FileUtil.loadPromotion(SECOND_HALF_PRICE);
 
         assertThat(promotion.getPromotionItems().keySet(), contains(ITEM));
     }
