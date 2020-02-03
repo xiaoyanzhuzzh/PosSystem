@@ -61,5 +61,10 @@ possystem
             └── second_half_price_promotion.txt
     ```
 
+## 其他
+
+作业要求: [pos-readme]
+
 [购物车]: src/main/resources/cart.txt
 [优惠活动]: #优惠活动
+[pos-readme]: pos-readme.md
