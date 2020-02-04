@@ -1,5 +1,6 @@
 package com.github.liuyuhang997.possystem.entities;
 
+import com.github.liuyuhang997.possystem.utils.FileUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -7,12 +8,14 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 public class Item {
+    private final static int ONE = 1;
     private String name;
     private Double num;
     private Double price;
@@ -20,12 +23,12 @@ public class Item {
     private Double subtotal;
 
     public static Item parseItem(String lineFromFile) {
-        String[] itemAndNum = lineFromFile.split("-");
-        if (1 == itemAndNum.length) {
-            return buildItem(itemAndNum[0], 1d);
+        List<String> itemAndNum = FileUtil.splitLine("-", lineFromFile);
+        if (ONE == itemAndNum.size()) {
+            return buildItem(itemAndNum.get(0), 1d);
         } else {
-            Double num = Double.parseDouble(itemAndNum[1]);
-            return buildItem(itemAndNum[0], num);
+            double num = Double.parseDouble(itemAndNum.get(1));
+            return buildItem(itemAndNum.get(0), num);
         }
     }
 
@@ -33,7 +36,7 @@ public class Item {
         return Item.builder().name(name).num(num).price(1d).unit("KG").build();
     }
 
-    public Double getSubtotal() {
+    public double getSubtotal() {
         return round(subtotal);
     }
 

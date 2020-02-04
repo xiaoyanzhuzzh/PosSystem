@@ -5,6 +5,7 @@ import com.github.liuyuhang997.possystem.enums.FileNameEnum;
 import com.github.liuyuhang997.possystem.enums.PromotionEnum;
 import com.github.liuyuhang997.possystem.factories.PromotionFactory;
 import com.github.liuyuhang997.possystem.promotions.Promotion;
+import com.google.common.base.Splitter;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,5 +43,12 @@ public class FileUtil {
             e.printStackTrace();
         }
         return new ArrayList<>();
+    }
+
+    public static List<String> splitLine(String separator, String Line) {
+        return Splitter.on(separator)
+                .trimResults()
+                .omitEmptyStrings()
+                .splitToList(Line);
     }
 }

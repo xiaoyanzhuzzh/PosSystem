@@ -1,4 +1,4 @@
-package com.github.liuyuhang997.possystem.print;
+package com.github.liuyuhang997.possystem.prints;
 
 import com.github.liuyuhang997.possystem.entities.Cart;
 import com.github.liuyuhang997.possystem.entities.Item;
@@ -6,19 +6,19 @@ import com.github.liuyuhang997.possystem.entities.Item;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.github.liuyuhang997.possystem.print.PrintFormat.AFTER_DISCOUNT_PRICE;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.BEFORE_DISCOUNT_PRICE;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.DIRECTION_RIGHT;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.DISCOUNT_SPREAD;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.ITEM;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.ITEM_TITLE;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.ITEM_TITLE_NAME;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.PRINT_TIME;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.SHOPPING_DETAILS;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.SHOP_NAME;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.SUBTOTAL;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.TOTAL_PRICE;
-import static com.github.liuyuhang997.possystem.print.PrintFormat.YYYY_MM_DD_HH_MM_SS;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.AFTER_DISCOUNT_PRICE;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.BEFORE_DISCOUNT_PRICE;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.DIRECTION_RIGHT;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.DISCOUNT_SPREAD;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.ITEM;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.ITEM_TITLE;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.ITEM_TITLE_NAME;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.PRINT_TIME;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.SHOPPING_DETAILS;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.SHOP_NAME;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.SUBTOTAL;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.TOTAL_PRICE;
+import static com.github.liuyuhang997.possystem.prints.PrintFormat.YYYY_MM_DD_HH_MM_SS;
 import static java.lang.String.format;
 
 public class ConsolePrint {

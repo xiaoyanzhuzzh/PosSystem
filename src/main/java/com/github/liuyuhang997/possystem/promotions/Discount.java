@@ -12,7 +12,7 @@ public class Discount extends Promotion {
 
     @Override
     public double calculate(Item item) {
-        Double discount = promotionItems.get(item.getName()).getDiscount();
+        double discount = promotionItems.get(item.getName()).getDiscount();
         return discount * item.getNum() * item.getPrice();
     }
 }

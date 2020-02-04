@@ -10,7 +10,7 @@ public class SecondHalfPrice extends Promotion {
 
     @Override
     public double calculate(Item item) {
-        Double num = item.getNum();
+        double num = item.getNum();
         double remainder = num % 2;
         return ((num - remainder) * 0.75d + remainder) * item.getPrice();
     }

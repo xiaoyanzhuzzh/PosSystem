@@ -20,7 +20,9 @@ public class Cart {
         if (items.containsKey(item.getName())) {
             Item existedItem = items.get(item.getName());
             existedItem.setNum(existedItem.getNum() + item.getNum());
+            existedItem.setSubtotal(existedItem.getOriginalPrice());
         } else {
+            item.setSubtotal(item.getOriginalPrice());
             items.put(item.getName(), item);
         }
     }

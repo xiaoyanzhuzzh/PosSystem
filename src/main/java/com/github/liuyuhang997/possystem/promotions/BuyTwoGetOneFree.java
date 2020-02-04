@@ -10,7 +10,7 @@ public class BuyTwoGetOneFree extends Promotion {
 
     @Override
     public double calculate(Item item) {
-        Double num = item.getNum();
+        double num = item.getNum();
         double remainder = num % 3;
         return ((num - remainder) / 3 * 2 + remainder) * item.getPrice();
     }

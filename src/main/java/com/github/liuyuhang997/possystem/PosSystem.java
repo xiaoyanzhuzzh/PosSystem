@@ -1,7 +1,7 @@
 package com.github.liuyuhang997.possystem;
 
 import com.github.liuyuhang997.possystem.entities.Cart;
-import com.github.liuyuhang997.possystem.print.ConsolePrint;
+import com.github.liuyuhang997.possystem.prints.ConsolePrint;
 import com.github.liuyuhang997.possystem.promotions.Promotion;
 import com.github.liuyuhang997.possystem.utils.FileUtil;
 import lombok.Getter;
@@ -48,14 +48,11 @@ public class PosSystem {
 
     protected void calculatePromotion() {
         cart.getItems()
-                .forEach((itemName, item) -> {
-                    item.setSubtotal(item.getOriginalPrice());
-                    promotions.forEach(promotion -> {
-                        double promotionSubtotal = promotion.calculatePromotion(item);
-                        if (promotionSubtotal < item.getSubtotal()) {
-                            item.setSubtotal(promotionSubtotal);
-                        }
-                    });
-                });
+                .forEach((itemName, item) -> promotions.forEach(promotion -> {
+                    double promotionSubtotal = promotion.calculatePromotion(item);
+                    if (promotionSubtotal < item.getSubtotal()) {
+                        item.setSubtotal(promotionSubtotal);
+                    }
+                }));
     }
 }

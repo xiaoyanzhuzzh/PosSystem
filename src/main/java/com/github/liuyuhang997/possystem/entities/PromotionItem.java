@@ -1,8 +1,11 @@
 package com.github.liuyuhang997.possystem.entities;
 
+import com.github.liuyuhang997.possystem.utils.FileUtil;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @Builder
@@ -12,8 +15,8 @@ public class PromotionItem {
     protected Double discount;
 
     public static PromotionItem parsePromotionItem(String lineFromFile) {
-        String[] itemAndNum = lineFromFile.split(":");
-        Double discount = Double.parseDouble(itemAndNum[1]) / 100.0;
-        return PromotionItem.builder().name(itemAndNum[0]).discount(discount).build();
+        List<String> itemAndNum = FileUtil.splitLine(":", lineFromFile);
+        double discount = Double.parseDouble(itemAndNum.get(1)) / 100.0;
+        return PromotionItem.builder().name(itemAndNum.get(0)).discount(discount).build();
     }
 }

@@ -1,4 +1,4 @@
-package com.github.liuyuhang997.possystem.print;
+package com.github.liuyuhang997.possystem.prints;
 
 public class PrintFormat {
     final static String ITEM = "%-20s %-6s %-6s %-5s";

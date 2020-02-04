@@ -74,4 +74,13 @@ public class FileUtilTest {
 
         assertThat(cart.getItems().get(ITEM).getNum(), is(2d));
     }
+
+    @Test
+    void should_return_split_line() {
+        List<String> lines = FileUtil.splitLine("@", "123@234");
+
+        assertThat(lines, hasSize(2));
+        assertThat(lines.get(0), is("123"));
+        assertThat(lines.get(1), is("234"));
+    }
 }

@@ -19,7 +19,7 @@ PosSystem是一个命令行的Pos系统，Pos系统运行时会读取[购物车]
 2. 传入商店名称运行main函数(可选)
 
     ```shell
-        java -jar PosSystem.java [ShopName]
+    java -jar PosSystem.java [ShopName]
     ```
 
 ## 项目结构

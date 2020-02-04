@@ -1,4 +1,4 @@
-package com.github.liuyuhang997.possystem.print;
+package com.github.liuyuhang997.possystem.prints;
 
 import com.github.liuyuhang997.possystem.PosSystem;
 import com.github.liuyuhang997.possystem.entities.Cart;
