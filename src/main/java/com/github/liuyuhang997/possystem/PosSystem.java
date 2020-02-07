@@ -4,9 +4,9 @@ import com.github.liuyuhang997.possystem.entities.Cart;
 import com.github.liuyuhang997.possystem.prints.ConsolePrint;
 import com.github.liuyuhang997.possystem.promotions.Promotion;
 import com.github.liuyuhang997.possystem.utils.FileUtil;
+import com.google.common.collect.Lists;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.BUY_TWO_GET_ONE_FREE;
@@ -26,7 +26,7 @@ public class PosSystem {
 
     public PosSystem(String shopName) {
         this.shopName = shopName;
-        this.promotions = new ArrayList<>();
+        this.promotions = Lists.newArrayList();
         cart = loadCart(FileUtil.getResourcePath(CART.getName()));
         promotions.addAll(asList(
                 loadPromotion(BUY_TWO_GET_ONE_FREE),

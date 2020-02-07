@@ -3,11 +3,11 @@ package com.github.liuyuhang997.possystem.promotions;
 import com.github.liuyuhang997.possystem.entities.Item;
 import com.github.liuyuhang997.possystem.utils.FileUtil;
 import com.github.liuyuhang997.possystem.utils.TestUtil;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.DISCOUNT;
@@ -23,7 +23,7 @@ public class DiscountTest {
     @AfterEach
     void emptyFile() throws IOException {
         TestUtil.deleteFile(DISCOUNT_PROMOTION_PATH);
-        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, new ArrayList<>());
+        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, Lists.newArrayList());
     }
 
     @Test

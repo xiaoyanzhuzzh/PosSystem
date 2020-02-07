@@ -6,11 +6,11 @@ import com.github.liuyuhang997.possystem.enums.PromotionEnum;
 import com.github.liuyuhang997.possystem.factories.PromotionFactory;
 import com.github.liuyuhang997.possystem.promotions.Promotion;
 import com.google.common.base.Splitter;
+import com.google.common.collect.Lists;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -42,7 +42,7 @@ public class FileUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>();
+        return Lists.newArrayList();
     }
 
     public static List<String> splitLine(String separator, String Line) {

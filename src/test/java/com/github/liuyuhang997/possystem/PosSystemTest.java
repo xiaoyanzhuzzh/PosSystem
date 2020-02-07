@@ -1,11 +1,11 @@
 package com.github.liuyuhang997.possystem;
 
 import com.github.liuyuhang997.possystem.utils.TestUtil;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.BUY_TWO_GET_ONE_FREE;
@@ -31,10 +31,10 @@ public class PosSystemTest {
         TestUtil.deleteFile(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH);
         TestUtil.deleteFile(DISCOUNT_PROMOTION_PATH);
         TestUtil.deleteFile(SECOND_HALF_PRICE_PROMOTION_PATH);
-        TestUtil.initFileWithContext(CART_PATH, new ArrayList<>());
-        TestUtil.initFileWithContext(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH, new ArrayList<>());
-        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, new ArrayList<>());
-        TestUtil.initFileWithContext(SECOND_HALF_PRICE_PROMOTION_PATH, new ArrayList<>());
+        TestUtil.initFileWithContext(CART_PATH, Lists.newArrayList());
+        TestUtil.initFileWithContext(BUY_TWO_GET_ONE_FREE_PROMOTION_PATH, Lists.newArrayList());
+        TestUtil.initFileWithContext(DISCOUNT_PROMOTION_PATH, Lists.newArrayList());
+        TestUtil.initFileWithContext(SECOND_HALF_PRICE_PROMOTION_PATH, Lists.newArrayList());
     }
 
     @Test

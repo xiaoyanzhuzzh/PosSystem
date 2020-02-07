@@ -1,11 +1,11 @@
 package com.github.liuyuhang997.possystem.utils;
 
 import com.github.liuyuhang997.possystem.entities.Cart;
+import com.google.common.collect.Lists;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.github.liuyuhang997.possystem.enums.FileNameEnum.CART;
@@ -23,7 +23,7 @@ public class FileUtilTest {
     @AfterEach
     void tearDown() throws IOException {
         TestUtil.deleteFile(CART_PATH);
-        TestUtil.initFileWithContext(CART_PATH, new ArrayList<>());
+        TestUtil.initFileWithContext(CART_PATH, Lists.newArrayList());
     }
 
     @Test

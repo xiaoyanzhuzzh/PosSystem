@@ -11,8 +11,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 public class PromotionItem {
-    protected String name;
-    protected Double discount;
+    private String name;
+    private Double discount;
 
     public static PromotionItem parsePromotionItem(String lineFromFile) {
         List<String> itemAndNum = FileUtil.splitLine(":", lineFromFile);

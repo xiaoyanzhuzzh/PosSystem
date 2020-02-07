@@ -1,18 +1,18 @@
 package com.github.liuyuhang997.possystem.entities;
 
+import com.google.common.collect.Maps;
 import lombok.Getter;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 public class Cart {
 
-    public Cart() {
-        this.items = new HashMap<>();
-    }
-
     private Map<String, Item> items;
+
+    public Cart() {
+        this.items = Maps.newHashMap();
+    }
 
     public void addItem(String lineFromFile) {
         Item item = Item.parseItem(lineFromFile);
