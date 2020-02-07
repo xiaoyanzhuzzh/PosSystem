@@ -9,7 +9,7 @@ PosSystem是一个命令行的Pos系统，Pos系统运行时会读取[购物车]
 
 ## 项目配置
 
-1. 项目配置了git-hooks，在pre-push时会运行"./gradlew check"检查项目测试是否通过
+1. 项目配置了git-hooks，在pre-push时会运行"./gradlew check"检查项目PMD和测试是否通过
 2. 项目使用了travis CI环境，在.travis.yml中会运行"./gradlew clean build"进行build
 3. 项目使用了codecov来显示测试覆盖率，在travis CI运行完成后会上报测试覆盖率，作为徽章显示在README页面
 

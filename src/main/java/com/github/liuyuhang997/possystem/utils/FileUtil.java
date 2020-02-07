@@ -18,7 +18,7 @@ import static java.util.stream.Collectors.toList;
 
 public class FileUtil {
     public static String getResourcePath(String name) {
-        return Objects.requireNonNull(FileUtil.class.getClassLoader().getResource(name)).getPath();
+        return Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource(name)).getPath();
     }
 
     public static Promotion loadPromotion(FileNameEnum fileName) {

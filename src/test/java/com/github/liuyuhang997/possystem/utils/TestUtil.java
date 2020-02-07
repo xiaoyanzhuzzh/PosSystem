@@ -18,9 +18,6 @@ public class TestUtil {
     }
 
     public static String getResourcePath(String fileName) {
-        return Objects.requireNonNull(TestUtil.class
-                .getClassLoader()
-                .getResource(fileName)
-        ).getPath();
+        return Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource(fileName)).getPath();
     }
 }
